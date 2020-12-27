@@ -1,6 +1,6 @@
 <script>
 	import GlobalStyles from "./GlobalStyles.svelte";
-	import InfoIcon from "./InfoIcon.svelte";
+	import InfoIcon from "../icons/info.svg";
 </script>
 
 <style>
@@ -74,7 +74,7 @@
 			target="_blank"
 			class="info"
 			href="https://www.notion.so/jwieben/Meeting-Notes-Live-dd9571901e4e4b6bbc96225005850e8a">
-			<InfoIcon />
+			<InfoIcon class="info-icon" />
 			How does this work?
 		</a>
 	</header>
