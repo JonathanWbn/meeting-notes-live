@@ -1,6 +1,24 @@
 <script>
+	import { onMount } from "svelte";
 	import GlobalStyles from "./GlobalStyles.svelte";
 	import InfoIcon from "../icons/info.svg";
+
+	let text = "";
+
+	onMount(async () => {
+		await fetch(`/api/document${window.location.pathname}`)
+			.then((r) => r.json())
+			.then((data) => {
+				text = data.text;
+			});
+	});
+
+	async function handleChange() {
+		await fetch(`/api/document${window.location.pathname}`, {
+			method: "POST",
+			body: JSON.stringify({ text }),
+		});
+	}
 </script>
 
 <style>
@@ -80,6 +98,10 @@
 	</header>
 	<main>
 		<!-- svelte-ignore a11y-autofocus -->
-		<textarea autofocus placeholder="Type notes here..." />
+		<textarea
+			autofocus
+			placeholder="Type notes here..."
+			bind:value={text}
+			on:keyup={handleChange} />
 	</main>
 </div>

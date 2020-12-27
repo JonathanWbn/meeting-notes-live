@@ -8,16 +8,16 @@ export default async function handle(req, res) {
       const db = await connectToDatabase();
       const documentsCollection = await db.collection("documents");
 
-      // create new document
       const id = randomstring.generate(7);
-      const document = await documentsCollection.insertOne({
+      await documentsCollection.insertOne({
         id,
         createdAt: Date.now(),
         text: "",
       });
 
-      // redirect to new URL based on document id
-      res.writeHead(301, { Location: `https://meetingnotes.live/${id}` });
+      res.writeHead(301, {
+        Location: `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/${id}`,
+      });
       res.end();
     }
   }
