@@ -1,3 +1,5 @@
+import { connectToDatabase } from "../../db";
+
 export default function handle(req, res) {
   switch (req.method) {
     case "GET": {
