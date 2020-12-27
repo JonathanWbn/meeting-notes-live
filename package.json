@@ -17,6 +17,8 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
-    "sirv-cli": "^1.0.0"
+    "mongodb": "^3.6.3",
+    "sirv-cli": "^1.0.0",
+    "url": "^0.11.0"
   }
 }
