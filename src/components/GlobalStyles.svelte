@@ -4,6 +4,9 @@
     font-family: "Inter", sans-serif;
   }
 
+  :global(html) {
+    min-width: 600px;
+  }
   :global(body) {
     margin: 0;
   }
