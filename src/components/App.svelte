@@ -1,23 +1,55 @@
 <script>
 	import { onMount } from "svelte";
+	import marked from "marked";
 	import GlobalStyles from "./GlobalStyles.svelte";
 	import InfoIcon from "../icons/info.svg";
+	import CheckIcon from "../icons/check.svg";
+	import LoaderIcon from "../icons/loader.svg";
+	import Cookies from "js-cookie";
 
+	const id = window.location.pathname.slice(1);
 	let text = "";
+	let isSaving = false;
+	let isSaved = false;
+	let debounceTimer;
+	const isAuthor = Boolean(Cookies.get(`is-author-${id}`));
 
 	onMount(async () => {
-		await fetch(`/api/document${window.location.pathname}`)
+		await getLatestText();
+
+		if (!isAuthor) {
+			setInterval(getLatestText, 1000);
+		}
+	});
+
+	async function getLatestText() {
+		await fetch(`/api/document/${id}`)
 			.then((r) => r.json())
 			.then((data) => {
 				text = data.text;
 			});
-	});
+	}
 
-	async function handleChange() {
-		await fetch(`/api/document${window.location.pathname}`, {
+	function handleChange(e) {
+		debounce(() => updateDocument(e.target.value));
+	}
+
+	async function updateDocument(newText) {
+		isSaving = true;
+		await fetch(`/api/document/${id}`, {
 			method: "POST",
-			body: JSON.stringify({ text }),
+			body: JSON.stringify({ text: newText }),
 		});
+		isSaving = false;
+		isSaved = true;
+		setTimeout(() => {
+			isSaved = false;
+		}, 500);
+	}
+
+	function debounce(cb) {
+		clearTimeout(debounceTimer);
+		debounceTimer = setTimeout(cb, 500);
 	}
 </script>
 
@@ -42,6 +74,19 @@
 
 	h2 {
 		margin: 0;
+	}
+
+	.loading {
+		display: flex;
+		align-items: center;
+		flex-grow: 1;
+		margin-left: 15px;
+	}
+
+	.loading :global(svg) {
+		margin-right: 10px;
+		width: 20px;
+		height: 20px;
 	}
 
 	.info {
@@ -82,26 +127,55 @@
 	textarea::-webkit-resizer {
 		display: none;
 	}
+
+	.display {
+		box-shadow: 0 0 3rem rgba(128, 128, 128, 0.411);
+		border-radius: 10px;
+		width: 100%;
+		height: 100%;
+		padding: 15px;
+	}
 </style>
 
 <GlobalStyles />
-<div class="wrapper">
-	<header>
-		<h2>Meeting Notes Live</h2>
-		<a
-			target="_blank"
-			class="info"
-			href="https://www.notion.so/jwieben/Meeting-Notes-Live-dd9571901e4e4b6bbc96225005850e8a">
-			<InfoIcon class="info-icon" />
-			How does this work?
-		</a>
-	</header>
-	<main>
-		<!-- svelte-ignore a11y-autofocus -->
-		<textarea
-			autofocus
-			placeholder="Type notes here..."
-			bind:value={text}
-			on:keyup={handleChange} />
-	</main>
-</div>
+{#if isAuthor}
+	<div class="wrapper">
+		<header>
+			<h2>Meeting Notes Live</h2>
+			{#if isSaving}
+				<div class="loading">
+					<LoaderIcon />
+					Saving...
+				</div>
+			{:else if isSaved}
+				<div class="loading">
+					<CheckIcon />
+					Saved.
+				</div>
+			{/if}
+			<a
+				target="_blank"
+				class="info"
+				href="https://www.notion.so/jwieben/Meeting-Notes-Live-dd9571901e4e4b6bbc96225005850e8a">
+				<InfoIcon class="info-icon" />
+				How does this work?
+			</a>
+		</header>
+		<main>
+			<!-- svelte-ignore a11y-autofocus -->
+			<textarea
+				autofocus
+				placeholder="Type notes here..."
+				bind:value={text}
+				on:input={handleChange} />
+		</main>
+	</div>
+{:else}
+	<div class="wrapper">
+		<main>
+			<div class="display markdown-body">
+				{@html marked(text)}
+			</div>
+		</main>
+	</div>
+{/if}

@@ -17,6 +17,7 @@ export default async function handle(req, res) {
 
       res.writeHead(301, {
         Location: `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/${id}`,
+        "Set-Cookie": `is-author-${id}=true; Expires=Wed, 21 Oct 3000 07:28:00 GMT; Path=/`,
       });
       res.end();
     }

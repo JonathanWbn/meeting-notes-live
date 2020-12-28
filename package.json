@@ -17,6 +17,8 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "js-cookie": "^2.2.1",
+    "marked": "^1.2.7",
     "mongodb": "^3.6.3",
     "randomstring": "^1.1.5",
     "sirv-cli": "^1.0.0",
