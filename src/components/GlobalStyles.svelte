@@ -1,7 +1,7 @@
 <style>
   :global(*) {
     box-sizing: border-box;
-    font-family: "Inter", sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 
   :global(html) {
