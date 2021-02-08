@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "js-cookie": "^2.2.1",
-    "marked": "^1.2.7",
+    "marked": "^2.0.0",
     "mongodb": "^3.6.3",
     "randomstring": "^1.1.5",
     "sirv-cli": "^1.0.0",
