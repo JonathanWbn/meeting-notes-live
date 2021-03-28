@@ -135,6 +135,12 @@
     height: 100%;
     padding: 15px;
   }
+
+  .impressum {
+    color: dimgray;
+    text-decoration: none;
+    margin-bottom: 15px;
+  }
 </style>
 
 <GlobalStyles />
@@ -169,6 +175,9 @@
         bind:value={text}
         on:input={handleChange} />
     </main>
+    <a
+      class="impressum"
+      href="https://www.notion.so/jwieben/Impressum-7be1b0e1a1384c1cb9362bd1aef963d1">Impressum</a>
   </div>
 {:else}
   <div class="wrapper">
@@ -177,5 +186,8 @@
         {@html marked(text)}
       </div>
     </main>
+    <a
+      class="impressum"
+      href="https://www.notion.so/jwieben/Impressum-7be1b0e1a1384c1cb9362bd1aef963d1">Impressum</a>
   </div>
 {/if}
