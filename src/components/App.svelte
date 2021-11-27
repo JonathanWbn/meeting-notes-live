@@ -26,7 +26,7 @@
     await fetch(`/api/document/${id}`)
       .then((r) => r.json())
       .then((data) => {
-        text = data.text
+        text = data
       })
   }
 

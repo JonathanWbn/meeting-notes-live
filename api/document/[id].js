@@ -1,23 +1,17 @@
-import { connectToDatabase } from '../../db'
+import { get, set } from '../../lib/redis'
 
 export default async function handle(req, res) {
   const { body, query, method } = req
 
-  const db = await connectToDatabase()
-  const documentsCollection = await db.collection('documents')
-
   switch (method) {
     case 'GET': {
-      const document = await documentsCollection.findOne({ id: query.id })
+      const document = await get(query.id)
 
       res.json(document)
       break
     }
     case 'POST': {
-      await documentsCollection.findOneAndUpdate(
-        { id: query.id },
-        { $set: { text: JSON.parse(body).text } }
-      )
+      await set(query.id, JSON.parse(body).text)
 
       res.status(201).end()
     }

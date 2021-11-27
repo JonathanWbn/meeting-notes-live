@@ -21,11 +21,10 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "@upstash/redis": "^0.1.5",
     "js-cookie": "^2.2.1",
     "marked": "^2.0.7",
-    "mongodb": "^3.6.3",
     "randomstring": "^1.1.5",
-    "sirv-cli": "^1.0.0",
-    "url": "^0.11.0"
+    "sirv-cli": "^1.0.0"
   }
 }
