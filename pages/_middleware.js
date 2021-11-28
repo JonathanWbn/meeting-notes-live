@@ -1,14 +1,11 @@
 import { set } from '@upstash/redis'
 import { NextResponse } from 'next/server'
-// import randomstring from 'randomstring'
 
 export async function middleware(req) {
-  console.log(req.nextUrl.pathname)
   if (req.nextUrl.pathname === '/') {
-    const id = `blah`
-    console.log('setting now')
+    const id = makeid(10)
+
     await set(id, '')
-    console.log('setting done')
 
     const response = NextResponse.redirect(
       `${req.headers.get('x-forwarded-proto')}://${req.headers.get(
@@ -25,4 +22,15 @@ export async function middleware(req) {
   }
 
   return
+}
+
+function makeid(length) {
+  let result = ''
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const charactersLength = characters.length
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength))
+  }
+  return result
 }
