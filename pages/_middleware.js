@@ -7,7 +7,9 @@ export async function middleware(req) {
   console.log(req.nextUrl.pathname)
   if (req.nextUrl.pathname === '/') {
     const id = randomstring.generate(7)
+    console.log('setting now')
     await set(id, '')
+    console.log('setting done')
 
     const response = NextResponse.redirect(
       `${req.headers.get('x-forwarded-proto')}://${req.headers.get(
