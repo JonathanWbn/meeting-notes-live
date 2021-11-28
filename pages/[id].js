@@ -64,17 +64,18 @@ export default function Page({ initialText, isAuthor }) {
         <div className="wrapper">
           <header>
             <h2>Meeting Notes Live</h2>
-            {isSaving && (
+            {isSaving ? (
               <div className="loading">
                 <LoaderIcon />
                 Saving...
               </div>
-            )}
-            {isSaved && (
-              <div className="loading">
-                <CheckIcon />
-                Saved.
-              </div>
+            ) : (
+              isSaved && (
+                <div className="loading">
+                  <CheckIcon />
+                  Saved.
+                </div>
+              )
             )}
             <a
               target="_blank"
