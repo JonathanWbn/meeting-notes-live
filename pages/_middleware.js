@@ -19,5 +19,5 @@ export async function middleware(req) {
     return response
   }
 
-  return
+  return NextResponse.next()
 }
