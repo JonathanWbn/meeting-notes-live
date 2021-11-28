@@ -4,6 +4,7 @@ import randomstring from 'randomstring'
 import { set } from '../lib/redis'
 
 export async function middleware(req) {
+  console.log(req.nextUrl.pathname)
   if (req.nextUrl.pathname === '/') {
     const id = randomstring.generate(7)
     await set(id, '')
@@ -17,4 +18,6 @@ export async function middleware(req) {
 
     return response
   }
+
+  return
 }
