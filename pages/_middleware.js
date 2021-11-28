@@ -1,17 +1,13 @@
 import { NextResponse } from 'next/server'
 import randomstring from 'randomstring'
-import upstash from '@upstash/redis'
 
-const redis = upstash(
-  process.env.UPSTASH_REDIS_REST_URL,
-  process.env.UPSTASH_REDIS_REST_TOKEN
-)
+import { set } from '../lib/redis'
 
 export async function middleware(req) {
   console.log(req.nextUrl.pathname)
   if (req.nextUrl.pathname === '/') {
     const id = randomstring.generate(7)
-    await redis.set(id, '')
+    await set(id, '')
 
     const response = NextResponse.redirect(`/${id}`)
 
