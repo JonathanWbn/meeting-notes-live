@@ -1,7 +1,6 @@
+import { set } from '@upstash/redis'
 import { NextResponse } from 'next/server'
 import randomstring from 'randomstring'
-
-import { set } from '../lib/redis'
 
 export async function middleware(req) {
   console.log(req.nextUrl.pathname)
@@ -25,5 +24,5 @@ export async function middleware(req) {
     return response
   }
 
-  return NextResponse.next()
+  return
 }

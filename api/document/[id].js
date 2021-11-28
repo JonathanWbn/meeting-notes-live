@@ -1,11 +1,11 @@
-import { get, set } from '../../lib/redis'
+import { get, set } from '@upstash/redis'
 
 export default async function handle(req, res) {
   const { body, query, method } = req
 
   switch (method) {
     case 'GET': {
-      const document = await get(query.id)
+      const { data: document } = await get(query.id)
 
       res.json(document)
       break
