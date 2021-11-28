@@ -126,7 +126,7 @@ export async function getServerSideProps(context) {
   const initialText = await getText(context.query.id, true)
   return {
     props: {
-      initialText,
+      initialText: initialText || '',
       isAuthor,
     },
   }
