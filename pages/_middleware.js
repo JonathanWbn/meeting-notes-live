@@ -9,12 +9,16 @@ export async function middleware(req) {
     const id = randomstring.generate(7)
     await set(id, '')
 
-    const response = NextResponse.redirect(`/${id}`)
+    const response = NextResponse.redirect(
+      `${req.headers.get('x-forwarded-proto')}://${req.headers.get(
+        'x-forwarded-host'
+      )}/${id}`
+    )
 
-    // response.headers.set(
-    //   'Set-Cookie',
-    //   `is-author-${id}=true; Expires=Wed, 21 Oct 3000 07:28:00 GMT; Path=/`
-    // )
+    response.headers.set(
+      'Set-Cookie',
+      `is-author-${id}=true; Expires=Wed, 21 Oct 3000 07:28:00 GMT; Path=/`
+    )
 
     return response
   }
