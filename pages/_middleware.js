@@ -1,11 +1,11 @@
 import { set } from '@upstash/redis'
 import { NextResponse } from 'next/server'
-import randomstring from 'randomstring'
+// import randomstring from 'randomstring'
 
 export async function middleware(req) {
   console.log(req.nextUrl.pathname)
   if (req.nextUrl.pathname === '/') {
-    const id = randomstring.generate(7)
+    const id = `blah`
     console.log('setting now')
     await set(id, '')
     console.log('setting done')
