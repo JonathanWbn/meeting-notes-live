@@ -11,10 +11,10 @@ export async function middleware(req) {
 
     const response = NextResponse.redirect(`/${id}`)
 
-    response.headers.set(
-      'Set-Cookie',
-      `is-author-${id}=true; Expires=Wed, 21 Oct 3000 07:28:00 GMT; Path=/`
-    )
+    // response.headers.set(
+    //   'Set-Cookie',
+    //   `is-author-${id}=true; Expires=Wed, 21 Oct 3000 07:28:00 GMT; Path=/`
+    // )
 
     return response
   }
