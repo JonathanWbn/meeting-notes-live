@@ -53,7 +53,7 @@ export default function Page({ initialText, isAuthor }) {
       <Head>
         <link rel="shortcut icon" href="/favicon.svg" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <title>Meeting Notes Live</title>
+        <title>Meeting Notes</title>
         <link
           href="https://fonts.googleapis.com/css2?family=Inconsolata&family=Inter&display=swap"
           rel="stylesheet"
