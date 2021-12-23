@@ -63,7 +63,7 @@ export default function Page({ initialText, isAuthor }) {
       {isAuthor ? (
         <div className="wrapper">
           <header>
-            <h2>Meeting Notes Live</h2>
+            <h2>Meeting Notes</h2>
             {isSaving ? (
               <div className="loading">
                 <LoaderIcon />
