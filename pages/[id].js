@@ -134,6 +134,8 @@ export async function getServerSideProps(context) {
 
 async function getText(id, fullUrl = false) {
   return fetch(
-    `${fullUrl ? 'https://meetingnotes.live' : ''}/api/document/${id}`
+    `${
+      fullUrl ? 'https://meeting-notes-live-jonathan-wbn.vercel.app' : ''
+    }/api/document/${id}`
   ).then((r) => r.json())
 }
