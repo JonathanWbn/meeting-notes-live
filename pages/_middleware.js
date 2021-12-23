@@ -1,5 +1,7 @@
-import { set } from '@upstash/redis'
+import { set, auth } from '@upstash/redis'
 import { NextResponse } from 'next/server'
+
+auth(process.env.UPSTASH_REDIS_REST_URL, process.env.UPSTASH_REDIS_REST_TOKEN)
 
 export async function middleware(req) {
   if (req.nextUrl.pathname === '/') {
